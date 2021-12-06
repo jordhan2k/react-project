@@ -7,9 +7,5 @@ export const color = {
     secondaryDarkBlue: "#3A3B59"
 }
 
-export const status = {
-    OPEN : "Open",
-    COMPELETED : "Completed"
-}
 
 

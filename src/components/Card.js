@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
-import { color, status } from '../utils/constants';
+import { color } from '../utils/constants';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 
 const Container = styled.div`
     background-color: white;
@@ -9,13 +10,21 @@ const Container = styled.div`
     padding: 10px;
     box-sizing: border-box;
     margin: 10px 0;
-    /* box-shadow: 0 0 5px 2px rgba(0, 0, 0, .1); */
+    &:hover {
+        /* transform: scale(1.01); */
+        box-shadow: 0 0 5px 2px rgba(0, 0, 0, .09);
+    }
 
+`;
+
+const Header = styled.div`
+    display: flex;
 `;
 
 const Title = styled.h1`
     font-weight: 600;
     font-size: 16px;
+    flex: 1;
 
 `;
 
@@ -32,30 +41,38 @@ const Status = styled.span`
     background-color: white;
     border-radius: 5px;
     cursor: pointer;
-    background-color: ${props => props.st === status.OPEN ? color.primaryBeige : color.primaryGreen};
+    background-color: ${props => props.status ? color.primaryGreen : color.primaryBeige};
 `;
 
 
 export default class Card extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            _id: this.props.todo._id,
-            title: this.props.todo.title,
-            status: this.props.todo.status,
-            desc: this.props.todo.desc
 
-        }
-    }
 
     render() {
-
+        const { todo, statusHandler } = this.props;
 
         return (
-            <Container>
-                <Title>{this.state.title}</Title>
-                <Desc>{this.state.desc}</Desc>
-                <Status st={this.state.status}>{this.state.status}</Status>
+            <Container status={todo.isCompleted}>
+                <Header>
+                    <Title>{todo.title}</Title>
+                    <DeleteOutlineOutlinedIcon
+                        style={{
+                            fontSize: 16,
+                            cursor: 'pointer'
+                        }} 
+                        onClick={() => this.props.deleteHandler(todo._id)}
+                        />
+                </Header>
+
+                <Desc>{todo.desc}</Desc>
+                <Status
+                    onClick={() => statusHandler(todo._id)}
+                    title="Click me to change status"
+                    status={todo.isCompleted}>{
+                        todo.isCompleted
+                            ? "Completed"
+                            : "Open"
+                    }</Status>
             </Container>
         )
     }

@@ -67,7 +67,7 @@ export default class AddPanel extends Component {
     }
 
     onAddBtn() {
-        if (this.state.todoInput.title && this.state.todoInput.desc)
+        if (this.state.todoInput.title)
             this.props.addTodoHandler(this.state.todoInput)
             this.setState({
                 todoInput: {
@@ -83,7 +83,7 @@ export default class AddPanel extends Component {
             <Container>
                 <Input
                     type="text"
-                    placeholder="Tile"
+                    placeholder="Title"
                     value={this.state.todoInput.title}
                     name="title"
                     onChange={(event) => this.onInputChange(event)}
@@ -95,7 +95,6 @@ export default class AddPanel extends Component {
                     name="desc"
                     value={this.state.todoInput.desc}
                     onChange={(event) => this.onInputChange(event)}
-                    required
                 />
                 <Button
                     type="submit"

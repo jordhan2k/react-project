@@ -5,8 +5,8 @@ import LifeCycle from "./pages/LifeCycle";
 
 function App() {
   return (
-    // <Dashboard />
-    <LifeCycle />
+    <Dashboard />
+    // <LifeCycle />
     
   );
 }

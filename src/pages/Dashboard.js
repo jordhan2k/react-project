@@ -1,9 +1,17 @@
 import React, { Component } from 'react'
 import styled from 'styled-components';
-import AddPanel from '../components/AddPanel';
 import Card from '../components/Card';
-import { color } from '../utils/constants';
+import { color, FILTER_ALL, FILTER_COMP, FILTER_OPEN } from '../utils/constants';
 import { v4 as uuidv4 } from 'uuid';
+import EditModal from '../components/Modal';
+import InputPanel from '../components/InputPanel';
+
+import Modal from '../components/Modal';
+
+
+
+
+
 
 
 const Container = styled.div`
@@ -11,6 +19,8 @@ const Container = styled.div`
     justify-content: center;
     background-color: ${color.primaryGray};
     overflow-y: scroll;
+    position: relative;
+    
 `;
 
 const Wrapper = styled.div`
@@ -35,19 +45,32 @@ const Title = styled.h1`
 
 
 
+
+
+
 export default class Dashboard extends Component {
     constructor() {
         super();
-
         this.state = {
             todos: [],
+            showEditModal: false,
+            editedTodo: {}
         }
+
+        this.changeStatus = this.changeStatus.bind(this);
+        this.addTodo = this.addTodo.bind(this);
+        this.editTodo = this.editTodo.bind(this);
+        this.deleteTodo = this.deleteTodo.bind(this);
+        this.closeEditPanel = this.closeEditPanel.bind(this);
+        this.openEditPanel = this.openEditPanel.bind(this);
     }
 
     changeStatus(todoId) {
         this.setState(prevState => ({
             ...prevState,
-            todos: prevState.todos.map(todo => todo._id === todoId ? { ...todo, isCompleted: !todo.isCompleted } : todo)
+            todos: prevState.todos.map(todo => todo._id === todoId
+                ? { ...todo, isCompleted: !todo.isCompleted }
+                : todo)
         }));
     }
 
@@ -68,26 +91,58 @@ export default class Dashboard extends Component {
         this.setState({
             todos: this.state.todos.filter(todo => todo._id !== todoId)
         })
-
     }
 
+    editTodo(updatedTodo) {
+        this.setState({
+            todos: this.state.todos.map(todo => todo._id === updatedTodo._id ? updatedTodo : todo)
+        })
+        this.closeEditPanel();
+    }
 
+    openEditPanel(editedTodo) {
+        this.setState({ showEditModal: true });
+        this.setState({ editedTodo })
+    }
+
+    closeEditPanel() {
+        this.setState({ showEditModal: false });
+        this.setState({ editedTodo: {} })
+    }
 
     render() {
         return (
             <Container>
                 <Wrapper >
                     <Title>My todo list</Title>
-                    <AddPanel addTodoHandler={this.addTodo.bind(this)} />
+                    <InputPanel
+                        submitHandler={this.addTodo}
+                        mode="add"
+                    />
+
                     {this.state.todos.length > 0 && this.state.todos.map(item => (
                         <Card
                             key={item._id}
                             todo={item}
-                            statusHandler={this.changeStatus.bind(this)}
-                            deleteHandler={this.deleteTodo.bind(this)}
+                            statusHandler={this.changeStatus}
+                            deleteHandler={this.deleteTodo}
+                            editHandler={this.openEditPanel}
                         />
                     ))}
                 </Wrapper>
+
+                {this.state.showEditModal && <Modal
+                    show={this.state.showEditModal}
+                >
+                    <InputPanel
+                        todo={this.state.editedTodo}
+                        submitHandler={this.editTodo}
+                        cancelHandler={this.closeEditPanel}
+                        mode="edit"
+
+                    />
+                </Modal>}
+
             </Container>
         )
     }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import styled from 'styled-components';
 import Card from '../components/Card';
-import { color, FILTER_ALL, FILTER_COMP, FILTER_OPEN } from '../utils/constants';
+import { color } from '../../utils/constants';
 import { v4 as uuidv4 } from 'uuid';
 import EditModal from '../components/Modal';
 import InputPanel from '../components/InputPanel';

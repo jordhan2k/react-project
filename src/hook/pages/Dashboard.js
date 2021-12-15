@@ -39,20 +39,13 @@ const Title = styled.h1`
     margin: 20px 0;
 `;
 
-
-
-
-
-
-
-
 const Dashboard = () => {
 
     const [todos, setTodos] = useState([]);
     const [showEditModal, setShowEditModal] = useState(false);
     const [editedTodo, setEditedTodo] = useState({});
 
-
+    
 
     const changeStatus = (todoId) => {
         setTodos(prevTodos => ({

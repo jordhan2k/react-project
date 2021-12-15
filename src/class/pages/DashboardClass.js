@@ -48,7 +48,7 @@ const Title = styled.h1`
 
 
 
-export default class Dashboard extends Component {
+export default class DashboardClass extends Component {
     constructor() {
         super();
         this.state = {

@@ -1,4 +1,4 @@
-// import Dashboard from './class/pages/Dashboard'
+import DashboardClass from './class/pages/DashboardClass'
 import Dashboard from './hook/pages/Dashboard';
 
 // import './App.scss'

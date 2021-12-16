@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { color } from '../../utils/constants';
+import { color } from '../utils/constants';
 import ClearRoundedIcon from '@mui/icons-material/ClearRounded';
 
 const Container = styled.form`
@@ -14,6 +14,7 @@ const Container = styled.form`
     border-radius: 10px;  
     position: relative;
     margin-bottom: 10px;
+    
 `;
 
 const IconContainer = styled.div`
@@ -59,6 +60,7 @@ const Button = styled.button`
     :focus{
         border: none;
     }
+    
 `;
 
 const InputPanel = ({ todo, mode, submitHandler, cancelHandler }) => {

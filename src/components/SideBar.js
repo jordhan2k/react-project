@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { color } from '../utils/constants';
-import DashboardRoundedIcon from '@mui/icons-material/DashboardRounded';
-import FactCheckRoundedIcon from '@mui/icons-material/FactCheckRounded';
-import PermContactCalendarRoundedIcon from '@mui/icons-material/PermContactCalendarRounded';
-import SettingsApplicationsRoundedIcon from '@mui/icons-material/SettingsApplicationsRounded';
 import PersonAddAltRoundedIcon from '@mui/icons-material/PersonAddAltRounded';
 import img from '../assets/images/avatar.jpg';
-import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
+import { Link, Outlet, useLocation} from 'react-router-dom';
+import routeData from '../utils/routeData';
 
 const Container = styled.div`
     background-color: ${color.primaryGreen};
@@ -49,35 +46,7 @@ const IconContainer = styled.div`
     }
 `;
 
-const sideBarData = [
 
-    {
-        id: "1",
-        path: "/",
-        name: "Dashboard",
-        icon: <DashboardRoundedIcon />
-    },
-    {
-        id: "2",
-        path: "/todo-list",
-        name: "TodoList",
-        icon: <FactCheckRoundedIcon />
-    },
-    {
-        id: "3",
-        path: "/contacts",
-        name: "Contacts",
-        icon: <PermContactCalendarRoundedIcon />
-    },
-    {
-        id: "4",
-        path: "/settings",
-        name: "Settings",
-        icon: <SettingsApplicationsRoundedIcon />
-    },
-
-
-]
 
 
 const SideBar = () => {
@@ -93,8 +62,7 @@ const SideBar = () => {
     return (
         <Container>
             <Top>
-
-                {sideBarData.map(item => (
+                {routeData.map(item => (
                     <Link key={item.id} to={item.path} title={item.name}>
                         <IconContainer active={activePath === item.path}>
                             {item.icon}
@@ -103,7 +71,6 @@ const SideBar = () => {
 
                 ))}
             </Top>
-
             <Bottom>
                 <Link to="/profile">
                     <IconContainer>
@@ -116,9 +83,6 @@ const SideBar = () => {
                     </IconContainer>
                 </Link>
             </Bottom>
-
-            <Outlet />
-
         </Container>
     )
 }

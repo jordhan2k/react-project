@@ -7,30 +7,29 @@ import TodoList from './pages/TodoList';
 import Dashboard from './pages/Dashboard';
 import Settings from './pages/Settings';
 import Contacts from './pages/Contacts';
+import routeData from './utils/routeData';
 
 const Contaner = styled.div`
   display: flex;
-  
-  
 `;
-
-
 
 function App() {
   return (
-    <Contaner>
-      <Router>
+
+    <Router>
+      <Contaner>
         <SideBar />
         <Routes >
-          <Route path="/" element={<Dashboard />} />
-          <Route path="/todo-list" element={<TodoList />} />
-          <Route path="/contacts" element={<Contacts />} />
-          <Route path="/settings" element={<Settings />} />
-
-          <Route path="/profile" element={<Profile />} />
+          {routeData.map(routeItem => (
+            <Route
+              path={routeItem.path}
+              element={routeItem.component || <Dashboard />} />
+          ))
+          }
         </Routes>
-      </Router>
-    </Contaner>
+      </Contaner>
+    </Router >
+
   );
 }
 

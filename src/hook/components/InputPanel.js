@@ -64,6 +64,7 @@ const Button = styled.button`
 const InputPanel = ({ todo, mode, submitHandler, cancelHandler }) => {
 
     const [todoInput, setTodoInput] = useState({
+        _id: todo ? todo._id : "",
         title: todo ? todo.title : "",
         desc: todo ? todo.desc : "",
         isCompleted: todo ? todo.isCompleted : false

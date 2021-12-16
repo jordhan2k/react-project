@@ -47,20 +47,15 @@ const TodoList = () => {
     const [showEditModal, setShowEditModal] = useState(false);
     const [editedTodo, setEditedTodo] = useState({});
 
-    
-
     const changeStatus = (todoId) => {
-        setTodos(prevTodos => ({
-            ...prevTodos,
-            todos: prevTodos.map(todo => todo._id === todoId
-                ? { ...todo, isCompleted: !todo.isCompleted }
-                : todo)
-        }));
+        setTodos(todos.map(todo => todo._id === todoId
+            ? { ...todo, isCompleted: !todo.isCompleted }
+            : todo));
     }
 
     const addTodo = (todo) => {
-        setTodos(prevTodos => [
-            ...prevTodos,
+        setTodos([
+            ...todos,
             {
                 ...todo,
                 _id: uuidv4(),
@@ -70,13 +65,12 @@ const TodoList = () => {
     }
 
     const deleteTodo = (todoId) => {
-        setTodos(
-            todos.filter(todo => todo._id !== todoId)
-        );
+        setTodos(todos.filter(todo => todo._id !== todoId));
     }
 
     const editTodo = (updatedTodo) => {
-        setTodos(todos.map(todo => todo._id === updatedTodo._id ? updatedTodo : todo))
+        console.log(updatedTodo);
+        setTodos(todos.map(todo => todo._id === updatedTodo._id ? { ...updatedTodo } : todo))
         closeEditPanel();
     }
 

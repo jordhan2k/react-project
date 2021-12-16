@@ -2,11 +2,7 @@
 import styled from 'styled-components';
 import SideBar from './components/SideBar';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Profile from './pages/Profile';
-import TodoList from './pages/TodoList';
-import Dashboard from './pages/Dashboard';
-import Settings from './pages/Settings';
-import Contacts from './pages/Contacts';
+import Error from './pages/Error'
 import routeData from './utils/routeData';
 
 const Contaner = styled.div`
@@ -23,7 +19,7 @@ function App() {
           {routeData.map(routeItem => (
             <Route
               path={routeItem.path}
-              element={routeItem.component || <Dashboard />} />
+              element={routeItem.component || <Error />} />
           ))
           }
         </Routes>

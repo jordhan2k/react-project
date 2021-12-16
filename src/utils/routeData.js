@@ -7,8 +7,8 @@ import NoteAltIcon from '@mui/icons-material/NoteAlt';
 import ColorLensIcon from '@mui/icons-material/ColorLens';
 import Dashboard from '../pages/Dashboard';
 import TodoList from '../pages/TodoList';
-import Contacts from '../pages/Contacts';
 import Settings from '../pages/Settings';
+import Profile from '../pages/Profile';
 
 export default [
     {
@@ -52,11 +52,11 @@ export default [
         icon: <MarkChatUnreadIcon />
     },
     {
-        id: "7",
-        path: "/contacts",
-        name: "Contacts",
+        id: "8",
+        path: "/profile/:username",
+        name: "Profile",
         icon: <PermContactCalendarRoundedIcon />,
-        component: <Contacts />
+        component: <Profile />
     },
 
 ];

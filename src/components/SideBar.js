@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { color } from '../utils/constants';
 import PersonAddAltRoundedIcon from '@mui/icons-material/PersonAddAltRounded';
 import img from '../assets/images/avatar.jpg';
-import { Link, Outlet, useLocation} from 'react-router-dom';
+import { Link, Outlet, useLocation } from 'react-router-dom';
 import routeData from '../utils/routeData';
 
 const Container = styled.div`
@@ -62,7 +62,7 @@ const SideBar = () => {
     return (
         <Container>
             <Top>
-                {routeData.map(item => (
+                {routeData.map(item => item.path !== "/profile/:username" && (
                     <Link key={item.id} to={item.path} title={item.name}>
                         <IconContainer active={activePath === item.path}>
                             {item.icon}

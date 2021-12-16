@@ -6,12 +6,6 @@ import { v4 as uuidv4 } from 'uuid';
 import InputPanel from '../components/InputPanel';
 import Modal from '../components/Modal';
 
-
-
-
-
-
-
 const Container = styled.div`
     flex: 1;
     display: flex;
@@ -20,7 +14,6 @@ const Container = styled.div`
     overflow-y: scroll;
     position: relative;
     color: #3A3B59;
-    
 `;
 
 const Wrapper = styled.div`
@@ -31,9 +24,6 @@ const Wrapper = styled.div`
     align-items: center;
     box-shadow: 0 0 1px 10px rgba(0, 0 , 0, 0, .8);
 `;
-
-
-
 
 const Title = styled.h1`
     font-size: 25px;

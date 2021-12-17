@@ -1,4 +1,4 @@
-import { todo, todoActions } from "../../utils/constants";
+import { todoActionTypes } from "../../utils/constants";
 
 const initialState = {
     todos: []
@@ -10,19 +10,22 @@ const todoReducer = (state = initialState, action) => {
     const { type, payload } = action;
 
     switch (type) {
-        case todoActions.ADD:
+        case todoActionTypes.ADD:
             return {
-
+                ...state,
+                todos: [...state.todos, payload]
             };
 
-        case todoActions.DELETE:
+        case todoActionTypes.DELETE:
             return {
-
+                ...state,
+                todos: state.todos.filter(todo => todo._id !== payload)
             }
 
-        case todoActions.EDIT:
+        case todoActionTypes.EDIT:
             return {
-
+                ...state,
+                todos: state.todos.map(todo => todo._id === payload._id ? { ...payload } : todo)
             }
         default:
             return state;

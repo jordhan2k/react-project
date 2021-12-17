@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { color } from '../utils/constants';
+import { color } from '../../utils/constants';
 import ClearRoundedIcon from '@mui/icons-material/ClearRounded';
 
 const Container = styled.form`

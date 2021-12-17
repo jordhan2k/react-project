@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { color } from '../utils/constants';
+import { color } from '../../utils/constants';
 import PersonAddAltRoundedIcon from '@mui/icons-material/PersonAddAltRounded';
-import img from '../assets/images/avatar.jpg';
-import { Link, Outlet, useLocation } from 'react-router-dom';
-import routeData from '../utils/routeData';
+import img from '../../assets/images/avatar.jpg';
+import { Link,  useLocation } from 'react-router-dom';
+import routeData from '../../utils/routeData';
 
 const Container = styled.div`
     background-color: ${color.primaryGreen};
@@ -20,7 +20,6 @@ const Image = styled.img`
     border-radius: 50%;
     width: 35px;
     height: 35px;
-
 `;
 
 const Top = styled.div`
@@ -28,7 +27,6 @@ const Top = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
- 
 `;
 
 const Bottom = styled.div`
@@ -40,7 +38,6 @@ const Bottom = styled.div`
 const IconContainer = styled.div`
     margin: 10px 0;
     font-size: 25px;
-
     & > svg {
         fill: ${props => props.active ? "white" : "#C3DFC2"};
     }

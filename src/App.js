@@ -1,6 +1,6 @@
 // import Dashboard from './pages/Dashboard';
 import styled from 'styled-components';
-import SideBar from './components/SideBar';
+import SideBar from './components/Common/SideBar';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Error from './pages/Error'
 import routeData from './utils/routeData';
@@ -17,7 +17,7 @@ function App() {
         <SideBar />
         <Routes >
           {routeData.map(routeItem => (
-            <Route
+            <Route key={routeItem.id}
               path={routeItem.path}
               element={routeItem.component || <Error />} />
           ))

@@ -12,7 +12,7 @@ export const FILTER_OPEN = "Open";
 export const FILTER_COMP = "Completed"
 
 
-export const todoActions = {
+export const todoActionTypes = {
     ADD : "Add todo",
     EDIT : "Edit todo",
     DELETE: "Delete todo",

@@ -1,11 +1,12 @@
 import React, { Component, useState } from 'react'
 import styled from 'styled-components';
-import Card from '../components/Card';
+import Card from '../components/TodoList/Card';
 import { color } from '../utils/constants';
 import { v4 as uuidv4 } from 'uuid';
-import InputPanel from '../components/InputPanel';
-import Modal from '../components/Modal';
-import { useSelector } from 'react-redux';
+import InputPanel from '../components/TodoList/InputPanel';
+import Modal from '../components/TodoList/Modal';
+import { useSelector, useDispatch } from 'react-redux';
+import { addTodo, deleteTodo, editTodo } from '../store/actions/todoActions';
 
 const Container = styled.div`
     flex: 1;
@@ -33,35 +34,35 @@ const Title = styled.h1`
 `;
 
 const TodoList = () => {
+    const todoList = useSelector(state => state.todo.todos);
+    const dispatch = useDispatch();
 
-    const [todos, setTodos] = useState([]);
     const [showEditModal, setShowEditModal] = useState(false);
     const [editedTodo, setEditedTodo] = useState({});
 
-    const changeStatus = (todoId) => {
-        setTodos(todos.map(todo => todo._id === todoId
-            ? { ...todo, isCompleted: !todo.isCompleted }
-            : todo));
+    const changeStatus = (todo) => {
+        const updatedTodo = {
+            ...todo,
+            isCompleted : !todo.isCompleted
+        };
+        dispatch(editTodo(updatedTodo));
     }
 
-    const addTodo = (todo) => {
-        setTodos([
-            ...todos,
-            {
-                ...todo,
-                _id: uuidv4(),
-                isCompleted: false
-            }
-        ])
+    const onAddTodo = (todo) => {
+        const newTodo = {
+            ...todo,
+            _id: uuidv4(),
+            isCompleted: false
+        };
+        dispatch(addTodo(newTodo));
     }
 
-    const deleteTodo = (todoId) => {
-        setTodos(todos.filter(todo => todo._id !== todoId));
+    const onDeleteTodo = (todoId) => {
+        dispatch(deleteTodo(todoId));
     }
 
-    const editTodo = (updatedTodo) => {
-        console.log(updatedTodo);
-        setTodos(todos.map(todo => todo._id === updatedTodo._id ? { ...updatedTodo } : todo))
+    const onEditTodo = (updatedTodo) => {
+        dispatch(editTodo(updatedTodo));
         closeEditPanel();
     }
 
@@ -80,16 +81,16 @@ const TodoList = () => {
             <Wrapper >
                 <Title>Still todo list but it's hook</Title>
                 <InputPanel
-                    submitHandler={addTodo}
+                    submitHandler={onAddTodo}
                     mode="add"
                 />
 
-                {todos.length > 0 && todos.map(item => (
+                {todoList.length > 0 && todoList.map(item => (
                     <Card
                         key={item._id}
                         todo={item}
                         statusHandler={changeStatus}
-                        deleteHandler={deleteTodo}
+                        deleteHandler={onDeleteTodo}
                         editHandler={openEditPanel}
                     />
                 ))}
@@ -100,7 +101,7 @@ const TodoList = () => {
             >
                 <InputPanel
                     todo={editedTodo}
-                    submitHandler={editTodo}
+                    submitHandler={onEditTodo}
                     cancelHandler={closeEditPanel}
                     mode="edit"
                 />

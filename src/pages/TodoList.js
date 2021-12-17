@@ -5,6 +5,7 @@ import { color } from '../utils/constants';
 import { v4 as uuidv4 } from 'uuid';
 import InputPanel from '../components/InputPanel';
 import Modal from '../components/Modal';
+import { useSelector } from 'react-redux';
 
 const Container = styled.div`
     flex: 1;

@@ -9,6 +9,8 @@ import Dashboard from '../pages/Dashboard';
 import TodoList from '../pages/TodoList';
 import Settings from '../pages/Settings';
 import Profile from '../pages/Profile';
+import LibraryMusicRounded from '@mui/icons-material/LibraryMusicRounded';
+import MusicPlayer from '../pages/MusicPlayer';
 
 export default [
     {
@@ -41,9 +43,10 @@ export default [
     },
     {
         id: "5",
-        path: "/notes",
-        name: "Note",
-        icon: <NoteAltIcon />
+        path: "/music-player",
+        name: "Music Player",
+        icon: <LibraryMusicRounded />,
+        component: <MusicPlayer />
     },
     {
         id: "6",

@@ -1,5 +1,6 @@
 import ColorLens from '@mui/icons-material/ColorLens';
 import FactCheckRounded from '@mui/icons-material/FactCheckRounded';
+import LibraryMusicRoundedIcon from '@mui/icons-material/LibraryMusicRounded';
 import React from 'react'
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
@@ -77,19 +78,20 @@ const Dashboard = () => {
                     </LinkContainer>
                 </Link>
 
-                <Link to="/" style={{ textDecoration: "none" }}>
+                <Link to="/ui" style={{ textDecoration: "none" }}>
                     <LinkContainer>
                         <ColorLens />
                         <LinkTitle >Material UI</LinkTitle>
                     </LinkContainer>
                 </Link>
 
-                <Link to="/" style={{ textDecoration: "none" }}>
+                <Link to="/music-player" style={{ textDecoration: "none" }}>
                     <LinkContainer>
-                        <FactCheckRounded />
-                        <LinkTitle >An App</LinkTitle>
+                        <LibraryMusicRoundedIcon/>
+                        <LinkTitle >My App</LinkTitle>
                     </LinkContainer>
                 </Link>
+
             </Wrapper>
         </Container>
     )

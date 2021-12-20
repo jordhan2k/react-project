@@ -13,9 +13,27 @@ export const FILTER_COMP = "Completed"
 
 
 export const todoActionTypes = {
-    ADD : "Add todo",
-    EDIT : "Edit todo",
-    DELETE: "Delete todo",
+    ADD : "todos/addTodo",
+    EDIT : "todos/editTodo",
+    DELETE: "todos/deleteTodo",
+}
+
+export const todoFilterActionTypes = {
+    STATUS_CHANGE: "todoFilter/statusChange"
 }
 
 
+export const todoFilters = [
+    {
+        status: "All",
+        color: color.primaryBlue
+    },
+    {
+        status: "Open",
+        color: color.primaryBeige
+    },
+    {
+        status: "Completed",
+        color: color.primaryGreen
+    }
+];

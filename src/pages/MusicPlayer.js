@@ -1,20 +1,30 @@
+import { styled } from '@mui/system'
 import React from 'react'
+import PlayerBar from '../components/MusicPlayer/PlayerBar';
+
+const Container = styled('div')(props => ({
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    flex: 1
+}));
+
+const Wrapper = styled('div')(props => ({
+    flex: 1
+}))
+
+
 
 const MusicPlayer = () => {
     return (
-        <div style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            flex: 1
-        }}>
-            <audio
-            
-                controls="controls"
-                onLoadedMetadata={event => console.log(event.target)}
-                src={"https://firebasestorage.googleapis.com/v0/b/file-storage-38b52.appspot.com/o/files%2FYou%20Can_t%20Sit%20With%20Us%20-%20Sunmi.mp3?alt=media&token=0fab7de3-9e8c-44f3-9eb0-fb51c5e52652"}
-            />
-        </div>
+        <Container>
+            <Wrapper>
+
+            </Wrapper>
+
+            <PlayerBar />
+        </Container>
     )
 }
 

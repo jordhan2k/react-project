@@ -14,6 +14,7 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    z-index: 2;
 `;
 
 const Image = styled.img`
@@ -42,9 +43,6 @@ const IconContainer = styled.div`
         fill: ${props => props.active ? "white" : "#C3DFC2"};
     }
 `;
-
-
-
 
 const SideBar = () => {
 

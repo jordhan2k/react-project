@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
-import { color } from '../../utils/constants';
+import { color, todoFilters } from '../../utils/constants';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import EditOutlined from '@mui/icons-material/EditOutlined';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { deleteTodo, editTodo } from '../../store/actions/todoActions';
 
 const Container = styled.div`
     background-color: white;
@@ -12,7 +14,6 @@ const Container = styled.div`
     box-sizing: border-box;
     margin: 10px 0;
     &:hover {
-        /* transform: scale(1.01); */
         box-shadow: 0 0 5px 2px rgba(0, 0, 0, .09);
     }
 `;
@@ -40,17 +41,13 @@ const IconContainer = styled.div`
     &:hover {
         box-shadow: 0 0 5px 2px rgba(0, 0, 0, .09);
     }
-
 `;
-
 
 const Desc = styled.p`
     font-size: 14px;
     margin: 5px 0;
     font-style: italic;
-
 `;
-
 
 const Status = styled.span`
     margin: 5px 0;
@@ -63,17 +60,34 @@ const Status = styled.span`
     background-color: ${props => props.status ? color.primaryGreen : color.primaryBeige};
 `;
 
+const Card = ({ todo, editHandler }) => {
 
-const Card = ({ todo, statusHandler, deleteHandler, editHandler }) => {
+    const currentFilter = useSelector(state => state.todoFilter.status);
+    const dispatch = useDispatch();
 
+    const show = (currentFilter === todoFilters[0].status)
+     || (currentFilter === todoFilters[1].status && !todo.isCompleted)
+     || (currentFilter === todoFilters[2].status && todo.isCompleted);
 
-    return (
+     const changeStatus = (todo) => {
+        const updatedTodo = {
+            ...todo,
+            isCompleted: !todo.isCompleted
+        };
+        dispatch(editTodo(updatedTodo));
+    }
+
+     const onDeleteTodo = (todoId) => {
+        dispatch(deleteTodo(todoId));
+    }
+
+    return  show && (
         <Container status={todo.isCompleted}>
             <Header>
                 <Title>{todo.title}</Title>
                 <IconContainer >
                     <DeleteOutlineOutlinedIcon style={{ fontSize: "16px" }}
-                        onClick={() => deleteHandler(todo._id)}
+                        onClick={onDeleteTodo.bind(this,todo._id)}
                     />
                 </IconContainer>
                 <IconContainer>
@@ -85,7 +99,7 @@ const Card = ({ todo, statusHandler, deleteHandler, editHandler }) => {
 
             <Desc>{todo.desc}</Desc>
             <Status
-                onClick={() => statusHandler(todo)}
+                onClick={changeStatus.bind(this, todo)}
                 title="Click me to change status"
                 status={todo.isCompleted}>{
                     todo.isCompleted
@@ -94,8 +108,6 @@ const Card = ({ todo, statusHandler, deleteHandler, editHandler }) => {
                 }</Status>
         </Container>
     )
-
 }
-
 
 export default Card;

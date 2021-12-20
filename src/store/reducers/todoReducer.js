@@ -13,7 +13,7 @@ const todoReducer = (state = initialState, action) => {
         case todoActionTypes.ADD:
             return {
                 ...state,
-                todos: [...state.todos, payload]
+                todos: [payload, ...state.todos]
             };
 
         case todoActionTypes.DELETE:

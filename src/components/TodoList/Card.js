@@ -1,10 +1,11 @@
-import React, { Component } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import { color, todoFilters } from '../../utils/constants';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import EditOutlined from '@mui/icons-material/EditOutlined';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import {  useDispatch, useSelector } from 'react-redux';
 import { deleteTodo, editTodo } from '../../store/actions/todoActions';
+import { removeTodo, updateTodo } from '../../store/reducers/todoReducer';
 
 const Container = styled.div`
     background-color: white;
@@ -74,11 +75,11 @@ const Card = ({ todo, editHandler }) => {
             ...todo,
             isCompleted: !todo.isCompleted
         };
-        dispatch(editTodo(updatedTodo));
+        dispatch(updateTodo(updatedTodo));
     }
 
      const onDeleteTodo = (todoId) => {
-        dispatch(deleteTodo(todoId));
+        dispatch(removeTodo(todoId));
     }
 
     return  show && (

@@ -2,7 +2,7 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { changeFilter } from '../../store/actions/todoFilterActions';
-import { color, todoFilters } from '../../utils/constants';
+import { todoFilters } from '../../utils/constants';
 
 const Container = styled.div`
     padding: 20px;

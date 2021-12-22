@@ -3,7 +3,6 @@ import FactCheckRoundedIcon from '@mui/icons-material/FactCheckRounded';
 import PermContactCalendarRoundedIcon from '@mui/icons-material/PermContactCalendarRounded';
 import SettingsApplicationsRoundedIcon from '@mui/icons-material/SettingsApplicationsRounded';
 import MarkChatUnreadIcon from '@mui/icons-material/MarkChatUnread';
-import NoteAltIcon from '@mui/icons-material/NoteAlt';
 import ColorLensIcon from '@mui/icons-material/ColorLens';
 import Dashboard from '../pages/Dashboard';
 import TodoList from '../pages/TodoList';
@@ -12,7 +11,7 @@ import Profile from '../pages/Profile';
 import LibraryMusicRounded from '@mui/icons-material/LibraryMusicRounded';
 import MusicPlayer from '../pages/MusicPlayer';
 
-export default [
+const routeData = [
     {
         id: "1",
         path: "/",
@@ -63,3 +62,5 @@ export default [
     },
 
 ];
+
+export default routeData;

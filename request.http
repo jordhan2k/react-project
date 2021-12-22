@@ -1,0 +1,12 @@
+PUT https://61c0b46e33f24c00178235a4.mockapi.io/api/v1/todos/1
+Content-Type: application/json
+
+{
+    "title": "A todo",
+    "desc": "desc",
+    "isCompleted": false
+}
+
+###
+DELETE https://61c0b46e33f24c00178235a4.mockapi.io/api/v1/todos/3
+

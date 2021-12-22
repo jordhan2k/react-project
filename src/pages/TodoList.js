@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react'
+import React, {  useEffect, useState } from 'react'
 import styled from 'styled-components';
 import Card from '../components/TodoList/Card';
 import { color } from '../utils/constants';
@@ -6,8 +6,10 @@ import { color } from '../utils/constants';
 import InputPanel from '../components/TodoList/InputPanel';
 import Modal from '../components/TodoList/Modal';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
-import { deleteTodo, editTodo } from '../store/actions/todoActions';
+import { editTodo } from '../store/actions/todoActions';
 import FilterPanel from '../components/TodoList/FilterPanel';
+import {fetchAllTodos, updateTodo} from '../store/reducers/todoReducer';
+import FloatingPlayer from '../components/Common/FloatingPlayer';
 
 const Container = styled.div`
     flex: 1;
@@ -42,8 +44,12 @@ const TodoList = () => {
     const [showEditModal, setShowEditModal] = useState(false);
     const [editedTodo, setEditedTodo] = useState({});
 
+    useEffect(() => {
+        dispatch(fetchAllTodos());
+    },[dispatch]);
+
     const onEditTodo = (updatedTodo) => {
-        dispatch(editTodo(updatedTodo));
+        dispatch(updateTodo(updatedTodo));
         closeEditPanel();
     }
 
@@ -60,7 +66,7 @@ const TodoList = () => {
     return (
         <Container>
             <Wrapper >
-                <Title>Still todo list but it's hook</Title>
+                <Title>Still todolist but it's redux</Title>
                 <InputPanel
                     mode="add"
                 />

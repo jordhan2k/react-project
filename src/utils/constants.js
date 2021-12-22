@@ -13,6 +13,7 @@ export const FILTER_COMP = "Completed"
 
 
 export const todoActionTypes = {
+    LOAD_ALL: "todos/loadAllTodos",
     ADD : "todos/addTodo",
     EDIT : "todos/editTodo",
     DELETE: "todos/deleteTodo",
@@ -37,3 +38,12 @@ export const todoFilters = [
         color: color.primaryGreen
     }
 ];
+
+export const statusTypes = {
+    IDLE: "IDLE",
+    LOADING: "LOADING",
+    SUCCEEDED: "SUCCEEDED",
+    FAILED: "FAILED"
+}
+
+export const todosApi = "https://61c0b46e33f24c00178235a4.mockapi.io/api/v1/todos";

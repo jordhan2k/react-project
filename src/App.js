@@ -4,6 +4,7 @@ import SideBar from './components/Common/SideBar';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Error from './pages/Error'
 import routeData from './utils/routeData';
+import FloatingPlayer from './components/Common/FloatingPlayer';
 
 const Contaner = styled.div`
   display: flex;
@@ -15,6 +16,7 @@ function App() {
     <Router>
       <Contaner>
         <SideBar />
+        {/* <FloatingPlayer /> */}
         <Routes >
           {routeData.map(routeItem => (
             <Route key={routeItem.id}

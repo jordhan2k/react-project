@@ -4,7 +4,7 @@ import { color, todoFilters } from '../../utils/constants';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import EditOutlined from '@mui/icons-material/EditOutlined';
 import {  useDispatch, useSelector } from 'react-redux';
-import { deleteTodo, editTodo } from '../../store/actions/todoActions';
+import { deleteTodo, deleteTodoRequest, editTodo, editTodoRequest } from '../../store/actions/todoActions';
 import { removeTodo, updateTodo } from '../../store/reducers/todoReducer';
 
 const Container = styled.div`
@@ -75,11 +75,10 @@ const Card = ({ todo, editHandler }) => {
             ...todo,
             isCompleted: !todo.isCompleted
         };
-        dispatch(updateTodo(updatedTodo));
+        dispatch(editTodoRequest(updatedTodo));
     }
-
      const onDeleteTodo = (todoId) => {
-        dispatch(removeTodo(todoId));
+        dispatch(deleteTodoRequest(todoId));
     }
 
     return  show && (

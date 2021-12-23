@@ -2,14 +2,12 @@ import React, {  useEffect, useState } from 'react'
 import styled from 'styled-components';
 import Card from '../components/TodoList/Card';
 import { color } from '../utils/constants';
-
 import InputPanel from '../components/TodoList/InputPanel';
 import Modal from '../components/TodoList/Modal';
-import { useSelector, useDispatch, shallowEqual } from 'react-redux';
-import { editTodo } from '../store/actions/todoActions';
+import { useSelector, useDispatch } from 'react-redux';
+import { editTodoRequest, fetchTodosRequest} from '../store/actions/todoActions';
 import FilterPanel from '../components/TodoList/FilterPanel';
-import {fetchAllTodos, updateTodo} from '../store/reducers/todoReducer';
-import FloatingPlayer from '../components/Common/FloatingPlayer';
+import {updateTodo} from '../store/reducers/todoReducer';
 
 const Container = styled.div`
     flex: 1;
@@ -38,18 +36,18 @@ const Title = styled.h1`
 
 const TodoList = () => {
 
-    const todoList = useSelector(state => state.todo.todos, shallowEqual);
+    const todoList = useSelector(state => state.todo.todos);
     const dispatch = useDispatch();
 
     const [showEditModal, setShowEditModal] = useState(false);
     const [editedTodo, setEditedTodo] = useState({});
 
     useEffect(() => {
-        dispatch(fetchAllTodos());
+        dispatch(fetchTodosRequest());
     },[dispatch]);
 
     const onEditTodo = (updatedTodo) => {
-        dispatch(updateTodo(updatedTodo));
+        dispatch(editTodoRequest(updatedTodo));
         closeEditPanel();
     }
 

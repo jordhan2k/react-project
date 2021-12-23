@@ -2,10 +2,10 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import { color } from '../../utils/constants';
 import ClearRoundedIcon from '@mui/icons-material/ClearRounded';
-import { addTodo } from '../../store/actions/todoActions';
+import { addTodo, addTodoRequest } from '../../store/actions/todoActions';
 import { v4 as uuidv4 } from 'uuid';
 import { useDispatch } from 'react-redux';
-import { addNewTodo } from '../../store/reducers/todoReducer';
+
 
 const Container = styled.form`
     background-color: ${props => props.mode === "add" ? color.primaryGreen : color.primaryPurple};
@@ -91,7 +91,7 @@ const InputPanel = ({ todo, mode, submitHandler, cancelHandler }) => {
             _id: uuidv4(),
             isCompleted: false
         };
-        dispatch(addNewTodo(newTodo));
+        dispatch(addTodoRequest(newTodo));
     }
 
 

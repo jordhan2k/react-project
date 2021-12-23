@@ -64,7 +64,7 @@ const TodoList = () => {
     return (
         <Container>
             <Wrapper >
-                <Title>Still todolist but it's redux</Title>
+                <Title>Still todo list but it's redux saga</Title>
                 <InputPanel
                     mode="add"
                 />

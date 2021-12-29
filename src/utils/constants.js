@@ -30,6 +30,12 @@ export const todoActionTypes = {
     DELETE_FAIL: "todos/deleteTodoFail",
 }
 
+export const toastTypes = {
+    SUCCEED: "toast/succeed",
+    FAIL: "toast/fail",
+    WARNING: "toast/warning"
+}
+
 export const todoFilterActionTypes = {
     STATUS_CHANGE: "todoFilter/statusChange"
 }

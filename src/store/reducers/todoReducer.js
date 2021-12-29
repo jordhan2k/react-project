@@ -1,12 +1,9 @@
-import axios from "axios";
 import { statusTypes, todoActionTypes} from "../../utils/constants";
 
 const initialState = {
     status: statusTypes.IDLE,
-    todos: []
+    todos: [],
 }
-
-
 
 export default function todoReducer(state = initialState, action) {
     const { type, payload } = action;
@@ -48,6 +45,8 @@ export default function todoReducer(state = initialState, action) {
                 ...state,
                 todos: state.todos.map(todo => todo._id === payload._id ? { ...payload } : todo)
             };
+
+        
         default:
             return state;
 

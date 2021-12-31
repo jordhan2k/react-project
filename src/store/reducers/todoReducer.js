@@ -1,4 +1,5 @@
-import { statusTypes, todoActionTypes} from "../../utils/constants";
+import { statusTypes } from "../../utils/constants";
+import { todoActionTypes} from "../actions/actionTypes";
 
 const initialState = {
     status: statusTypes.IDLE,

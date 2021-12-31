@@ -6,9 +6,14 @@ import Error from './pages/Error'
 import routeData from './utils/routeData';
 import FloatingPlayer from './components/Common/FloatingPlayer';
 
+
+
+
 const Contaner = styled.div`
   display: flex;
 `;
+
+
 
 function App() {
   return (

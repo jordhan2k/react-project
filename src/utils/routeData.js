@@ -10,6 +10,7 @@ import Settings from '../pages/Settings';
 import Profile from '../pages/Profile';
 import LibraryMusicRounded from '@mui/icons-material/LibraryMusicRounded';
 import MusicPlayer from '../pages/MusicPlayer';
+import MaterialUI from '../pages/MaterialUI';
 
 const routeData = [
     {
@@ -30,7 +31,8 @@ const routeData = [
         id: "3",
         path: "/ui",
         name: "UI",
-        icon: <ColorLensIcon />
+        icon: <ColorLensIcon />,
+        component: <MaterialUI />
     },
 
     {

@@ -1,16 +1,20 @@
 import axios from "axios";
-import { todoActionTypes, todosApi } from "../../utils/constants";
-import { all, call, put, takeEvery, takeLatest } from 'redux-saga/effects';
+import { todosApi } from "../../utils/constants";
+import { all,  put, takeEvery } from 'redux-saga/effects';
 import { addTodoFail, addTodoSucceed, deleteTodoFail, deleteTodoSucceed, editTodoFail, editTodoSucceed, fetchTodosFail, fetchTodosSucceed } from "../actions/todoActions";
+import { todoActionTypes } from "../actions/actionTypes";
+import todoApi from "../../api/todoApi";
+
 
 function* fetchAllTodos() {
     try {
-        const response = yield axios.get(`${todosApi}`);
+        const response = yield todoApi.getAll();
         yield put(fetchTodosSucceed(response.data));
     } catch (error) {
         yield put(fetchTodosFail(error.message ? error.message : error));
     }
 }
+
 
 function* fetchAllTodosWatcher() {
     yield takeEvery(todoActionTypes.FETCH_TODOS_REQUEST, fetchAllTodos);
@@ -20,7 +24,7 @@ function* fetchAllTodosWatcher() {
 function* addNewTodo(action) {
     const todo = action.payload;
     try {
-        const response = yield axios.post(`${todosApi}`, todo);
+        const response = yield todoApi.addTodo(todo);
         yield put(addTodoSucceed(response.data));
     } catch (error) {
         yield put(addTodoFail(error));
@@ -34,7 +38,7 @@ function* addNewTodoWatcher() {
 function* editTodo(action) {
     const editedTodo = action.payload;
     try {
-        const response = yield axios.put(`${todosApi}/${editedTodo._id}`, editedTodo);
+        const response = yield todoApi.editTodo(editedTodo);
         yield put(editTodoSucceed(response.data));
     } catch (error) {
         yield put(editTodoFail(error));
@@ -48,7 +52,7 @@ function* editTodoWatcher() {
 function* deleteTodo(action) {
     const todoId = action.payload;
     try {
-        const response = yield axios.delete(`${todosApi}/${todoId}`);
+        const response = yield todoApi.deleteTodo(todoId);
         if (response.status === 200)
             yield put(deleteTodoSucceed(todoId));
     } catch (error) {

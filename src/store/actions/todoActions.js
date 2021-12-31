@@ -1,4 +1,4 @@
-import { todoActionTypes } from "../../utils/constants";
+import { todoActionTypes } from "./actionTypes";
 
 // ACTION: a JS object with 2 properties TYPE & PAYLOAD
 // ACTION CREATOR: a function that return an action

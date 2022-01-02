@@ -1,26 +1,40 @@
 import axiosClient from "./axiosClient";
 
+const trackUrl = "/tracks";
+const playlistUrl = "playlists";
 
 class PlayerApi {
 
-    getAllTracks () {
-        const url = "/tracks";
-        return axiosClient.get(url);
+    getAllTracks() {
+        return axiosClient.get(trackUrl);
     }
 
-    getTrackById (trackId) {
-        const url = `/tracks/${trackId}`;
-        return axiosClient.get(url);
+    getTrackById(trackId) {
+        return axiosClient.get(`${trackUrl}/${trackId}`);
     }
 
-    getAllPlaylists () {
-        const url = "/playlists"
-        return axiosClient.get(url);
+    getAllPlaylists() {
+        return axiosClient.get(playlistUrl);
     }
 
-    saveTrack (track) {
-        const url = "/tracks"
-        return axiosClient.post(url, track);
+    saveTrack(track) {
+        return axiosClient.post(trackUrl, track);
+    }
+
+    addPlaylist(playlist) {
+        return axiosClient.post(playlistUrl, playlist);
+    }
+
+    deletePlaylist(id) {
+        return axiosClient.delete(`${playlistUrl}/${id}`);
+    }
+
+    addTrackToPlaylist(track, playlistId) {
+        return axiosClient.post(`${playlistUrl}/${playlistId}/tracks`, track);
+    }
+
+    fetchPlaylistTracks(playlistId) {
+        return axiosClient.get(`${playlistUrl}/${playlistId}/tracks`);
     }
 
 

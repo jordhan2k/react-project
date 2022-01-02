@@ -88,7 +88,7 @@ const Dashboard = () => {
                 <Link to="/music-player" style={{ textDecoration: "none" }}>
                     <LinkContainer>
                         <LibraryMusicRoundedIcon/>
-                        <LinkTitle >My App</LinkTitle>
+                        <LinkTitle >Mup La</LinkTitle>
                     </LinkContainer>
                 </Link>
 

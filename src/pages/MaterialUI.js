@@ -1,5 +1,8 @@
-import { Box, Button, styled, TextField, Typography } from '@mui/material';
-import React, { useState } from 'react';
+import { Box, Button, Snackbar, styled, TextField, Typography } from '@mui/material';
+
+import React, { useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { saveTrackRequest } from '../store/actions/playerActions';
 import { color } from '../utils/constants';
 
 
@@ -30,14 +33,22 @@ const textFldSx = {
     margin: "10px 0"
 }
 
-const MaterialUI = () => {
 
-    const [trackInfo, setTrackInfo] = useState({
+const MaterialUI = () => {
+    const dispatch = useDispatch();
+    const initialTrackInfo = {
         title: "",
         artist: "",
         trackUrl: "",
-        artworkUrl: ""
-    });
+        artworkUrl: "",
+        durationMs: 0,
+    };
+
+    const audio = useRef();
+
+    const [trackInfo, setTrackInfo] = useState(initialTrackInfo);
+
+    const { title, artist, trackUrl, artworkUrl, durationMs } = trackInfo;
 
 
     const onInputChange = event => {
@@ -47,10 +58,28 @@ const MaterialUI = () => {
         }));
     }
 
+    const handleSubmit = event => {
+        event.preventDefault();
+
+        dispatch(saveTrackRequest(trackInfo));
+        setTrackInfo(initialTrackInfo);
+    }
+
+    const onAudioChange = () => {
+        const ms = audio.current.duration * 1000;
+        if (ms !== durationMs) {
+            setTrackInfo(prevState => ({
+                ...prevState,
+                durationMs: ms
+            }));
+        }
+    }
+
     return (
         <Container>
 
             <Box
+                onSubmit={handleSubmit}
                 component="form"
                 sx={{
                     display: "flex",
@@ -71,7 +100,7 @@ const MaterialUI = () => {
                     size="small"
                     variant="filled"
                     required
-                    value={trackInfo.title}
+                    value={title}
                     onChange={onInputChange}
                     sx={textFldSx}
                 />
@@ -82,7 +111,7 @@ const MaterialUI = () => {
                     size="small"
                     variant="filled"
                     required
-                    value={trackInfo.artist}
+                    value={artist}
                     onChange={onInputChange}
                     sx={textFldSx}
                 />
@@ -93,7 +122,7 @@ const MaterialUI = () => {
                     size="small"
                     variant="filled"
                     required
-                    value={trackInfo.trackUrl}
+                    value={trackUrl}
                     onChange={onInputChange}
                     sx={textFldSx}
                 />
@@ -104,7 +133,20 @@ const MaterialUI = () => {
                     size="small"
                     variant="filled"
                     required
-                    value={trackInfo.artworkUrl}
+                    value={artworkUrl}
+                    onChange={onInputChange}
+                    sx={textFldSx}
+                />
+                <TextField
+                    label="Duration in ms"
+                    name="durationMs"
+                    size="small"
+                    variant="filled"
+                    required
+                    type="number"
+                    min={0}
+                    disabled
+                    value={durationMs}
                     onChange={onInputChange}
                     sx={textFldSx}
                 />
@@ -135,14 +177,19 @@ const MaterialUI = () => {
                         {trackInfo.title || "Title"}</Typography>
                     <Typography
                         variant="h6"
-                        sx={{ fontFamily: "inherit", fontWeight: 500, margin: "10px 0"}} >
+                        sx={{ fontFamily: "inherit", fontWeight: 500, margin: "10px 0" }} >
                         {trackInfo.artist || "Artist"}</Typography>
                     <audio
+                        ref={audio}
                         controls
                         src={trackInfo.trackUrl}
+                        preload='metadata'
+                        onLoadedMetadata={onAudioChange}
                     />
                 </Box>
             </Box>
+
+
 
         </Container>
     )

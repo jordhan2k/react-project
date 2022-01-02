@@ -1,33 +1,39 @@
-import axios from "axios";
-import { todosApi } from "../../utils/constants";
 import { all,  put, takeEvery } from 'redux-saga/effects';
 import { addTodoFail, addTodoSucceed, deleteTodoFail, deleteTodoSucceed, editTodoFail, editTodoSucceed, fetchTodosFail, fetchTodosSucceed } from "../actions/todoActions";
 import { todoActionTypes } from "../actions/actionTypes";
 import todoApi from "../../api/todoApi";
+import { openSnackbar } from "../actions/snackbarActions";
 
 
 function* fetchAllTodos() {
     try {
         const response = yield todoApi.getAll();
         yield put(fetchTodosSucceed(response.data));
+      
     } catch (error) {
         yield put(fetchTodosFail(error.message ? error.message : error));
     }
 }
 
-
 function* fetchAllTodosWatcher() {
     yield takeEvery(todoActionTypes.FETCH_TODOS_REQUEST, fetchAllTodos);
 }
-
 
 function* addNewTodo(action) {
     const todo = action.payload;
     try {
         const response = yield todoApi.addTodo(todo);
         yield put(addTodoSucceed(response.data));
+        yield put(openSnackbar({
+            severity: "success",
+            message: "Hooray! Todo added."
+        }))
     } catch (error) {
         yield put(addTodoFail(error));
+        yield put(openSnackbar({
+            severity: "error",
+            message: "Oops! Something went wrong!"
+        }))
     }
 }
 
@@ -55,6 +61,10 @@ function* deleteTodo(action) {
         const response = yield todoApi.deleteTodo(todoId);
         if (response.status === 200)
             yield put(deleteTodoSucceed(todoId));
+            yield put(openSnackbar({
+                severity: "success",
+                message: "Yay! Todo deleted!"
+            }))
     } catch (error) {
         yield put(deleteTodoFail(error));
     }
@@ -63,9 +73,6 @@ function* deleteTodo(action) {
 function* deleteTodoWatcher() {
     yield takeEvery(todoActionTypes.DELETE_REQUEST, deleteTodo);
 }
-
-
-
 
 export default function* watcherSaga() {
     yield all([

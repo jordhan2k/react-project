@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { changeFilter } from '../../store/actions/todoFilterActions';
+import { changeFilter } from '../../store/actions/todoActions';
 import { todoFilters } from '../../utils/constants';
 
 const Container = styled.div`
@@ -27,7 +27,7 @@ const FilterItem = styled.div`
 
 const FilterPanel = () => {
 
-    const currentFilter = useSelector(state => state.todoFilter.status);
+    const currentFilter = useSelector(state => state.todo.filter);
     const dispatch = useDispatch();
 
     const onFilterClick = status => {

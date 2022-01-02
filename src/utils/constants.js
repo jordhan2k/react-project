@@ -4,7 +4,8 @@ export const color = {
     primaryGreen: "#8AC186",
     primaryBeige: "#FDF4C3",
     primaryPurple: "#D6C8F6",
-    secondaryDarkBlue: "#3A3B59"
+    primaryRed: "#E56F53",
+    secondaryDarkBlue: "#3A3B59",
 }
 
 export const FILTER_ALL = "All";
@@ -19,9 +20,7 @@ export const toastTypes = {
     WARNING: "toast/warning"
 }
 
-export const todoFilterActionTypes = {
-    STATUS_CHANGE: "todoFilter/statusChange"
-}
+
 
 
 export const todoFilters = [
@@ -46,4 +45,15 @@ export const statusTypes = {
     FAILED: "FAILED"
 }
 
-export const todosApi = "https://61c0b46e33f24c00178235a4.mockapi.io/api/v1/todos";
+export const defaultImages = {
+    TRACK_ARTWORK : "https://i.ibb.co/vdWPnhw/com-hidea-cat.png",
+    PLAYLIST_IMAGE: "https://i.ibb.co/fGK2Kcn/catnsoup.jpg"
+
+}
+
+
+export const snackbarSeverity = {
+    ERROR: "error",
+    SUCCESS: "success",
+    WARNING: "warning"
+}

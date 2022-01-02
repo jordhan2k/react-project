@@ -4,8 +4,8 @@ import { color, todoFilters } from '../../utils/constants';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import EditOutlined from '@mui/icons-material/EditOutlined';
 import {  useDispatch, useSelector } from 'react-redux';
-import { deleteTodo, deleteTodoRequest, editTodo, editTodoRequest } from '../../store/actions/todoActions';
-import { removeTodo, updateTodo } from '../../store/reducers/todoReducer';
+import {  deleteTodoRequest, editTodoRequest } from '../../store/actions/todoActions';
+
 
 const Container = styled.div`
     background-color: white;
@@ -63,7 +63,7 @@ const Status = styled.span`
 
 const Card = ({ todo, editHandler }) => {
 
-    const currentFilter = useSelector(state => state.todoFilter.status);
+    const currentFilter = useSelector(state => state.todo.filter);
     const dispatch = useDispatch();
 
     const show = (currentFilter === todoFilters[0].status)

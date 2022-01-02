@@ -1,13 +1,12 @@
 import { combineReducers } from "redux";
 import playerReducer from "./playerReducer";
-import { todoFilterReducer } from "./todoFilterReducer";
 import todoReducer from "./todoReducer";
-
+import snackbarReducer from "./snackbarReducer";
 
 const rootReducer = combineReducers({
     todo: todoReducer,
-    todoFilter: todoFilterReducer,
-    player: playerReducer
+    player: playerReducer,
+    snackbar: snackbarReducer
 })
 
 export default rootReducer;

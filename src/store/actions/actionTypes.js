@@ -15,3 +15,45 @@ export const todoActionTypes = {
     DELETE_SUCCEED: "todos/deleteTodoSucceed",
     DELETE_FAIL: "todos/deleteTodoFail",
 }
+
+export const todoFilterActionTypes = {
+    STATUS_CHANGE: "todoFilter/statusChange"
+}
+
+export const snackbarActionTypes = {
+    OPEN: "snackbar/open",
+    CLOSE: "snackbar/close"
+}
+
+export const playerActionTypes = {
+    FETCH_TRACKS_REQUEST: "player/tracks/fetchAllRequest",
+    FETCH_TRACKS_SUCCEED: "player/tracks/fetchAllSucceed",
+    FETCH_TRACKS_FAIL: "player/tracks/fetchAllFail",
+
+    SAVE_TRACK_REQUEST: "player/tracks/saveRequest",
+    SAVE_TRACK_SUCCEED: "player/tracks/saveSucceed",
+    SAVE_TRACK_FAIL: "player/tracks/saveFail",
+
+    FETCH_PLAYLISTS_REQUEST: "player/playlists/fetchAllRequest",
+    FETCH_PLAYLISTS_SUCCEED: "player/playlists/fetchAllSucceed",
+    FETCH_PLAYLISTS_FAIL: "player/playlists/fetchAllFail",
+
+    ADD_PLAYLIST_REQUEST: "player/playlists/addRequest",
+    ADD_PLAYLIST_SUCCEED: "player/playlists/addSucceed",
+    ADD_PLAYLIST_FAIL: "player/playlists/addFail",
+
+    DELETE_PLAYLIST_REQUEST: "player/playlists/deleteRequest",
+    DELETE_PLAYLIST_SUCCEED: "player/playlists/deleteSucceed",
+    DELETE_PLAYLIST_FAIL: "player/playlists/deleteFail",
+
+    ADD_TRACK_PLAYLIST_REQUEST: "player/playlists/addTrackRequest",
+    ADD_TRACK_PLAYLIST_SUCCEED: "player/playlists/addTrackSucceed",
+    ADD_TRACK_PLAYLIST_FAIL: "player/playlists/addTrackFail",
+
+    REMOVE_TRACK_PLAYLIST_REQUEST: "player/playlists/removeTrackRequest",
+    REMOVE_TRACK_PLAYLIST_SUCCEED: "player/playlists/removeTrackSucceed",
+    REMOVE_TRACK_PLAYLIST_FAIL: "player/playlists/removeTrackFail",
+
+    CHANGE_CURRENT_TRACK: "player/tracks/changeCurrentTrack",
+
+}

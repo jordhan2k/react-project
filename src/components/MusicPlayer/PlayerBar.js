@@ -16,6 +16,7 @@ import VolumeDownRoundedIcon from '@mui/icons-material/VolumeDownRounded';
 import VolumeUpRoundedIcon from '@mui/icons-material/VolumeUpRounded';
 import VolumeMuteRoundedIcon from '@mui/icons-material/VolumeMuteRounded';
 import VolumeOffRoundedIcon from '@mui/icons-material/VolumeOffRounded';
+import { useSelector } from 'react-redux'
 
 const useStyles = makeStyles({
     left: {
@@ -44,11 +45,7 @@ const useStyles = makeStyles({
     }
 });
 
-
-
-
 const Container = styled(Box)(props => ({
-    height: 80,
     width: "100%",
     boxShadow: "0 0 5px 2px rgba(0,0,0,.2)",
     backgroundColor: color.primaryGray,
@@ -94,11 +91,17 @@ const ControlBar = styled('div')(props => ({
 const ProgressBar = styled('div')(props => ({
     display: "flex",
     alignItems: "center",
-    width: "100%"
+    justifyContent: "center",
+    width: "100%",
+    position: "relative"
 }));
 
 const PlayerBar = (props) => {
     // for testing purpose only >>>>>>>>
+    const { title, artist, trackUrl, artworkUrl } = useSelector(state => state.player.currentTrack);
+
+    // const isPlaying = useSelector(state => state.player.isPlaying);
+
     const classes = useStyles(props);
 
 
@@ -108,23 +111,40 @@ const PlayerBar = (props) => {
     const [repeatMode, setRepeatMode] = useState(0);
 
     const [duration, setDuration] = useState();
+    const [currentTime, setCurrentTime] = useState(0);
+
+
     const [position, setPosition] = useState(0);
+    const [volume, setVolume] = useState(100);
 
     const audioPlayer = useRef();
 
+
+    useEffect(() => {
+        audioPlayer.current.volume = volume / 100;
+    }, [volume]);
+
+
+
+    const handleTimeUpdate = () => {
+        const currentSeconds = Math.floor(audioPlayer.current.currentTime);
+        setPosition(Math.floor((currentSeconds / duration) * 100));
+        setCurrentTime(currentSeconds);
+    }
+
+
+
+
     const handleChange = (event, newPosition) => {
+        setCurrentTime(Math.floor((duration / 100) * newPosition));
         setPosition(newPosition);
+        audioPlayer.current.currentTime = Math.floor((duration / 100) * newPosition);
     };
 
     const handleMetadata = (event) => {
         const seconds = Math.floor(event.target.duration);
         setDuration(seconds);
     }
-
-
-
-
-
 
     const togglePlay = () => {
         if (isPlaying) {
@@ -169,26 +189,26 @@ const PlayerBar = (props) => {
                 // controls
                 id="audio-player"
                 ref={audioPlayer}
-                src="https://firebasestorage.googleapis.com/v0/b/file-storage-38b52.appspot.com/o/music-player-storage%2FHIP%20-%20Mamamoo.mp3?alt=media&token=4801c650-aefe-41b5-98f6-fabc432cd8c9"
+                src={trackUrl && trackUrl}
                 preload='metadata'
                 onLoadedMetadata={handleMetadata}
-
+                onTimeUpdate={handleTimeUpdate}
             />
 
             <Box className={classes.left}>
-                <Artwork src="https://i.ibb.co/pd93Rsk/629c969064668b93f83d95022608da72.jpg" />
+                <Artwork src={artworkUrl || "https://i.ibb.co/vdWPnhw/com-hidea-cat.png"} />
                 <InfoContainer>
                     <TrackTitle>
-                        HIP
+                        {title || "Title"}
                     </TrackTitle>
                     <Artist>
-                        Mamamoo
+                        {artist || "Artist"}
                     </Artist>
                 </InfoContainer>
                 <IconContainer onClick={() => setIsLiked(!isLiked)}>
                     {!isLiked
                         ? <FavoriteBorderRoundedIcon style={{ fontSize: 20 }} />
-                        : <FavoriteRoundedIcon style={{ fill: "#E56F53", fontSize: 20 }} />}
+                        : <FavoriteRoundedIcon style={{ fill: color.primaryRed, fontSize: 20 }} />}
                 </IconContainer>
             </Box>
 
@@ -232,8 +252,9 @@ const PlayerBar = (props) => {
                     <Typography
                         variant="body2"
                         fontFamily="inherit"
+                        sx={{ position: "absolute", left: -10 }}
                     >
-                        0:00
+                        {!currentTime ? "0:00" : formatDuration(currentTime)}
                     </Typography>
                     <Slider
                         aria-label="Play progress"
@@ -241,12 +262,14 @@ const PlayerBar = (props) => {
                         onChange={handleChange}
                         size="small"
                         sx={{
-                            margin: "0 15px"
+                            margin: "0 15px",
+                            width: 410
                         }}
                     />
                     <Typography
                         variant="body2"
                         fontFamily="inherit"
+                        sx={{ position: "absolute", right: -10 }}
                     >
                         {!duration ? "0:00" : formatDuration(duration)}
                     </Typography>
@@ -255,10 +278,18 @@ const PlayerBar = (props) => {
             </Box>
 
             <Box className={classes.right}>
-                <VolumeDownRoundedIcon style={{ fontSize: 20 }} />
+                {volume === 0
+                    ? <VolumeOffRoundedIcon style={{ fontSize: 20 }} />
+                    : <VolumeDownRoundedIcon
+                        onClick={() => setVolume(0)}
+                        style={{ fontSize: 20, cursor: "pointer" }} />
+                }
+
 
                 <Slider
                     size='small'
+                    value={volume}
+                    onChange={(event, newValue) => setVolume(newValue)}
                     style={{ width: 100, margin: "0 10px" }}
                     sx={{
                         '& .MuiSlider-thumb': {
@@ -267,10 +298,8 @@ const PlayerBar = (props) => {
                         }
                     }}
                 />
-                {/* <VolumeOffRoundedIcon style={{fontSize: 20}}/> */}
+
                 <VolumeUpRoundedIcon style={{ fontSize: 20 }} />
-
-
             </Box>
 
 

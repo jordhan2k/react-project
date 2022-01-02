@@ -1,4 +1,4 @@
-import { todoActionTypes } from "./actionTypes";
+import { todoActionTypes, todoFilterActionTypes } from "./actionTypes";
 
 // ACTION: a JS object with 2 properties TYPE & PAYLOAD
 // ACTION CREATOR: a function that return an action
@@ -62,3 +62,9 @@ export const deleteTodoFail = error => ({
     payload: error
 });
 
+export const changeFilter = filter => {
+    return {
+        type: todoFilterActionTypes.STATUS_CHANGE,
+        payload: filter
+    };
+}

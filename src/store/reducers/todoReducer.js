@@ -1,9 +1,10 @@
-import { statusTypes } from "../../utils/constants";
-import { todoActionTypes} from "../actions/actionTypes";
+import { statusTypes, todoFilters } from "../../utils/constants";
+import { todoActionTypes, todoFilterActionTypes } from "../actions/actionTypes";
 
 const initialState = {
     status: statusTypes.IDLE,
     todos: [],
+    filter: todoFilters[0].status
 }
 
 export default function todoReducer(state = initialState, action) {
@@ -47,7 +48,12 @@ export default function todoReducer(state = initialState, action) {
                 todos: state.todos.map(todo => todo._id === payload._id ? { ...payload } : todo)
             };
 
-        
+        case todoFilterActionTypes.STATUS_CHANGE:
+            return {
+                ...state,
+                filter: payload
+            }
+
         default:
             return state;
 

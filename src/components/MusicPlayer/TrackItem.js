@@ -5,7 +5,7 @@ import { Box, Divider, Menu, MenuItem, styled, Typography } from '@mui/material'
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { addTrackPlaylistRequest, changeCurrentTrack } from '../../store/actions/playerActions';
+import { addTrackPlaylistRequest, changeCurrentTrack, changePlayState } from '../../store/actions/playerActions';
 import { openSnackbar } from '../../store/actions/snackbarActions';
 import { color } from '../../utils/constants';
 import { formatMs } from '../../utils/formatters';
@@ -96,16 +96,13 @@ const TrackItem = ({ index, track }) => {
     const { title, artist, artworkUrl, durationMs, trackUrl } = track;
     const dispatch = useDispatch();
 
-
     const [isLiked, setIsLiked] = useState(false);
     const [actionsVisible, setActionsVisible] = useState(false);
-
 
     const [anchorEl, setAnchorEl] = useState(null);
     const [childAnchorEl, setChildAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
     const childOpen = Boolean(childAnchorEl);
-
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -119,14 +116,13 @@ const TrackItem = ({ index, track }) => {
         setChildAnchorEl(null);
     }
 
-
     const handleClose = () => {
         setAnchorEl(null);
     };
 
-
     const handlePlayTrack = () => {
         dispatch(changeCurrentTrack(track));
+        dispatch(changePlayState(true));
     }
 
     const handleAddToPlaylist = playlistId => {
@@ -160,7 +156,6 @@ const TrackItem = ({ index, track }) => {
             handleClose();
         });
     }
-
 
     return (
         <>

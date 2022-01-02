@@ -16,7 +16,8 @@ import VolumeDownRoundedIcon from '@mui/icons-material/VolumeDownRounded';
 import VolumeUpRoundedIcon from '@mui/icons-material/VolumeUpRounded';
 import VolumeMuteRoundedIcon from '@mui/icons-material/VolumeMuteRounded';
 import VolumeOffRoundedIcon from '@mui/icons-material/VolumeOffRounded';
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { changePlayState } from '../../store/actions/playerActions'
 
 const useStyles = makeStyles({
     left: {
@@ -100,13 +101,14 @@ const PlayerBar = (props) => {
     // for testing purpose only >>>>>>>>
     const { title, artist, trackUrl, artworkUrl } = useSelector(state => state.player.currentTrack);
 
-    // const isPlaying = useSelector(state => state.player.isPlaying);
+    const isPlaying = useSelector(state => state.player.isPlaying);
+    const dispatch = useDispatch();
 
     const classes = useStyles(props);
 
 
     const [isLiked, setIsLiked] = useState(false);
-    const [isPlaying, setIsPlaying] = useState(false);
+    // const [isPlaying, setIsPlaying] = useState(false);
     const [shuffle, setShuffle] = useState(false);
     const [repeatMode, setRepeatMode] = useState(0);
 
@@ -119,11 +121,16 @@ const PlayerBar = (props) => {
 
     const audioPlayer = useRef();
 
-
     useEffect(() => {
         audioPlayer.current.volume = volume / 100;
     }, [volume]);
 
+
+    useEffect(() => {
+        if (audioPlayer.current && isPlaying) {
+            audioPlayer.current.play();
+        }
+    }, [title]);
 
 
     const handleTimeUpdate = () => {
@@ -148,10 +155,10 @@ const PlayerBar = (props) => {
 
     const togglePlay = () => {
         if (isPlaying) {
-            setIsPlaying(false);
+            dispatch(changePlayState(false));
             audioPlayer.current.pause();
         } else {
-            setIsPlaying(true);
+            dispatch(changePlayState(true));
             audioPlayer.current.play();
         }
     }

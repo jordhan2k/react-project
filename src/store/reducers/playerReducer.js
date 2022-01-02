@@ -6,11 +6,7 @@ const initialState = {
     isPlaying: false,
     currentTrack: {},
     currentPlaylist: {},
-    currentQueue: {
-        id: "",
-        name: "",
-        tracks: []
-    },
+    currentQueue: "Default",
     tracks: [],
     playlists: [],
 }
@@ -35,6 +31,9 @@ const playerReducer = (state = initialState, action) => {
             return {
                 ...state,
                 currentTrack: payload,
+                currentQueue: !payload.playlistId
+                    ? "Default"
+                    : payload.playlistId
             }
 
         case playerActionTypes.FETCH_PLAYLISTS_SUCCEED:
@@ -64,6 +63,12 @@ const playerReducer = (state = initialState, action) => {
                 playlists: state.playlists.map(item => item._id === targetPlaylist._id
                     ? targetPlaylist
                     : item)
+            }
+
+        case playerActionTypes.CHANGE_PLAY_STATE:
+            return {
+                ...state,
+                isPlaying: payload
             }
 
 

@@ -32,6 +32,11 @@ export const saveTrackFail = () => ({
 export const changeCurrentTrack = track => ({
     type: playerActionTypes.CHANGE_CURRENT_TRACK,
     payload: track
+});
+
+export const changePlayState = state => ({
+    type: playerActionTypes.CHANGE_PLAY_STATE,
+    payload: state
 })
 
 
@@ -66,11 +71,13 @@ export const deletePlaylistSucceed = playlistId => ({
 
 export const addTrackPlaylistRequest = (track, playlistId) => ({
     type: playerActionTypes.ADD_TRACK_PLAYLIST_REQUEST,
-    payload: {track, playlistId}
+    payload: { track, playlistId }
 });
 
 export const addTrackPlaylistSucceed = track => ({
     type: playerActionTypes.ADD_TRACK_PLAYLIST_SUCCEED,
     payload: track
 });
+
+
 

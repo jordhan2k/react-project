@@ -55,5 +55,6 @@ export const playerActionTypes = {
     REMOVE_TRACK_PLAYLIST_FAIL: "player/playlists/removeTrackFail",
 
     CHANGE_CURRENT_TRACK: "player/tracks/changeCurrentTrack",
+    CHANGE_PLAY_STATE: "player/play/changeState",
 
 }

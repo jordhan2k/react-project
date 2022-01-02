@@ -17,7 +17,7 @@ import VolumeUpRoundedIcon from '@mui/icons-material/VolumeUpRounded';
 import VolumeMuteRoundedIcon from '@mui/icons-material/VolumeMuteRounded';
 import VolumeOffRoundedIcon from '@mui/icons-material/VolumeOffRounded';
 import { useDispatch, useSelector } from 'react-redux'
-import { changePlayState } from '../../store/actions/playerActions'
+import { changeCurrentTrack, changePlayState } from '../../store/actions/playerActions'
 
 const useStyles = makeStyles({
     left: {
@@ -98,24 +98,21 @@ const ProgressBar = styled('div')(props => ({
 }));
 
 const PlayerBar = (props) => {
-    // for testing purpose only >>>>>>>>
-    const { title, artist, trackUrl, artworkUrl } = useSelector(state => state.player.currentTrack);
+
+    const { currentTrack, tracks, playlists, currentQueue } = useSelector(state => state.player);
+    const { title, artist, trackUrl, artworkUrl } = currentTrack;
 
     const isPlaying = useSelector(state => state.player.isPlaying);
     const dispatch = useDispatch();
 
     const classes = useStyles(props);
 
-
     const [isLiked, setIsLiked] = useState(false);
-    // const [isPlaying, setIsPlaying] = useState(false);
     const [shuffle, setShuffle] = useState(false);
     const [repeatMode, setRepeatMode] = useState(0);
 
     const [duration, setDuration] = useState();
     const [currentTime, setCurrentTime] = useState(0);
-
-
     const [position, setPosition] = useState(0);
     const [volume, setVolume] = useState(100);
 
@@ -132,17 +129,13 @@ const PlayerBar = (props) => {
         }
     }, [title]);
 
-
     const handleTimeUpdate = () => {
         const currentSeconds = Math.floor(audioPlayer.current.currentTime);
         setPosition(Math.floor((currentSeconds / duration) * 100));
         setCurrentTime(currentSeconds);
     }
 
-
-
-
-    const handleChange = (event, newPosition) => {
+    const handleSliderChange = (event, newPosition) => {
         setCurrentTime(Math.floor((duration / 100) * newPosition));
         setPosition(newPosition);
         audioPlayer.current.currentTime = Math.floor((duration / 100) * newPosition);
@@ -165,7 +158,6 @@ const PlayerBar = (props) => {
 
     const changeRepeatMode = () => {
         setRepeatMode((repeatMode + 1) % 3);
-        console.log(audioPlayer.current.duration);
     }
 
     let repeatIcon;
@@ -184,22 +176,59 @@ const PlayerBar = (props) => {
         return `${minute}:${second < 10 ? `0${second}` : `${second}`}`;
     }
 
-    // <<<<<<<<<< for testing purpose only 
+    const getAdjacentTracks = () => {
+        let currentTracks = [];
+        if (currentQueue === "0") {
+            currentTracks = [...tracks];
+        } else {
+            const playlist = playlists.find(item => item._id === currentQueue);
+            currentTracks = [...playlist.tracks];
+        }
+        const currentIndex = currentTracks.indexOf(currentTrack);
+        const prevIndex = currentIndex === 0 ? currentTracks.length - 1 : currentIndex - 1;
+        const nextIndex = currentIndex === currentTracks.length - 1 ? 0 : currentIndex + 1;
 
+        const isLastTrack = currentIndex === currentTracks.length - 1;
 
+        return [currentTracks[prevIndex], currentTracks[nextIndex], isLastTrack];
+    }
 
+    const handlePrevTrack = () => {
+        dispatch(changeCurrentTrack(getAdjacentTracks()[0]));
+    }
 
+    const handleNextTrack = () => {
+        dispatch(changeCurrentTrack(getAdjacentTracks()[1]));
+    }
+
+    const onTrackEnd = () => {
+        const isLastTrack = getAdjacentTracks()[2];
+        if (repeatMode === 0) {
+            if (isLastTrack) {
+                dispatch(changePlayState(false));
+            }
+            handleNextTrack();
+        }
+
+        if (repeatMode === 1) {
+            handleNextTrack();
+        }
+
+        if (repeatMode === 2) {
+            audioPlayer.current.play();
+        }
+    }
 
     return (
         <Container>
             <audio
-                // controls
                 id="audio-player"
                 ref={audioPlayer}
                 src={trackUrl && trackUrl}
                 preload='metadata'
                 onLoadedMetadata={handleMetadata}
                 onTimeUpdate={handleTimeUpdate}
+                onEnded={onTrackEnd}
             />
 
             <Box className={classes.left}>
@@ -220,8 +249,6 @@ const PlayerBar = (props) => {
             </Box>
 
             <Box className={classes.center}>
-
-
                 <ControlBar>
                     <IconContainer onClick={() => setShuffle(!shuffle)}  >
                         <ShuffleRoundedIcon
@@ -232,27 +259,22 @@ const PlayerBar = (props) => {
                         />
                     </IconContainer>
 
-                    <IconContainer >
+                    <IconContainer onClick={handlePrevTrack}>
                         <SkipPreviousRoundedIcon />
                     </IconContainer>
-
-
                     <IconContainer onClick={togglePlay}   >
                         {isPlaying
                             ? <PauseCircleFilledRoundedIcon style={{ fontSize: 40 }} />
                             : <PlayCircleFilledRoundedIcon style={{ fontSize: 40 }} />
                         }
                     </IconContainer>
-                    <IconContainer >
+                    <IconContainer onClick={handleNextTrack}>
                         <SkipNextRoundedIcon />
                     </IconContainer>
 
-                    <IconContainer
-                        onClick={() => changeRepeatMode()}
-                    >
+                    <IconContainer onClick={() => changeRepeatMode()}   >
                         {repeatIcon}
                     </IconContainer>
-
                 </ControlBar>
 
                 <ProgressBar>
@@ -266,7 +288,7 @@ const PlayerBar = (props) => {
                     <Slider
                         aria-label="Play progress"
                         value={position}
-                        onChange={handleChange}
+                        onChange={handleSliderChange}
                         size="small"
                         sx={{
                             margin: "0 15px",
@@ -292,7 +314,6 @@ const PlayerBar = (props) => {
                         style={{ fontSize: 20, cursor: "pointer" }} />
                 }
 
-
                 <Slider
                     size='small'
                     value={volume}
@@ -305,11 +326,8 @@ const PlayerBar = (props) => {
                         }
                     }}
                 />
-
                 <VolumeUpRoundedIcon style={{ fontSize: 20 }} />
             </Box>
-
-
         </Container>
     )
 }

@@ -6,7 +6,7 @@ const initialState = {
     isPlaying: false,
     currentTrack: {},
     currentPlaylist: {},
-    currentQueue: "Default",
+    currentQueue: "0",
     tracks: [],
     playlists: [],
 }
@@ -32,7 +32,7 @@ const playerReducer = (state = initialState, action) => {
                 ...state,
                 currentTrack: payload,
                 currentQueue: !payload.playlistId
-                    ? "Default"
+                    ? "0"
                     : payload.playlistId
             }
 
@@ -47,6 +47,7 @@ const playerReducer = (state = initialState, action) => {
                 ...state,
                 playlists: [...state.playlists, payload]
             }
+
         case playerActionTypes.DELETE_PLAYLIST_SUCCEED:
             return {
                 ...state,
@@ -70,8 +71,6 @@ const playerReducer = (state = initialState, action) => {
                 ...state,
                 isPlaying: payload
             }
-
-
 
         default:
             return state;

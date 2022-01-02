@@ -150,9 +150,10 @@ const PlayerBar = (props) => {
         if (isPlaying) {
             dispatch(changePlayState(false));
             audioPlayer.current.pause();
-        } else {
+        } else if (!isPlaying && currentTrack) {
             dispatch(changePlayState(true));
             audioPlayer.current.play();
+
         }
     }
 

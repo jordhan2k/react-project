@@ -9,6 +9,8 @@ import { addTrackPlaylistRequest, changeCurrentTrack, changePlayState } from '..
 import { openSnackbar } from '../../store/actions/snackbarActions';
 import { color } from '../../utils/constants';
 import { formatMs } from '../../utils/formatters';
+import playing from '../../assets/lottie/playing.json';
+import Lottie from 'react-lottie';
 
 
 const Container = styled(Box)({
@@ -71,12 +73,12 @@ const Duration = styled(Typography)({
     fontFamily: "inherit",
     fontWeight: 400,
     fontSize: 14,
-    width: "10%",
+    width: "9%",
     textAlign: "center"
 })
 
 const IconContainer = styled(Box)({
-    width: "10%",
+    width: "7%",
     display: "flex",
     alignItems: "center",
     justifyContent: "space-evenly",
@@ -92,7 +94,7 @@ const CustomMenuItem = styled(MenuItem)({
 
 const TrackItem = ({ index, track }) => {
 
-    const playlists = useSelector(state => state.player.playlists);
+    const { playlists, currentTrack, isPlaying } = useSelector(state => state.player);
     const { title, artist, artworkUrl, durationMs, trackUrl } = track;
     const dispatch = useDispatch();
 
@@ -183,10 +185,19 @@ const TrackItem = ({ index, track }) => {
                     <Artist>{artist}</Artist>
                 </TrackInfo>
 
+                <IconContainer>
+                    {(currentTrack.title === title && isPlaying) &&
+                        <Lottie
+                            options={{
+                                animationData: playing
+                            }}
+                            height={20}
+                        />}
+                </IconContainer>
+
                 <IconContainer onClick={() => setIsLiked(!isLiked)}>
                     {!isLiked ?
                         <FavoriteBorderRounded
-                            className="hidden-icons"
                             style={{ fontSize: 20, opacity: actionsVisible ? 1 : 0 }} />
                         : <FavoriteRounded style={{ fontSize: 20, fill: color.primaryRed }} />}
                 </IconContainer>
@@ -195,7 +206,6 @@ const TrackItem = ({ index, track }) => {
 
                 <IconContainer onClick={handleClick}>
                     <MenuRounded
-                        className="hidden-icons"
                         style={{ fontSize: 20, opacity: actionsVisible ? 1 : 0 }} />
                 </IconContainer>
 

@@ -71,6 +71,7 @@ function* loadUser() {
         }
     } catch (error) {
         yield localStorage.removeItem(LOCAL_STORAGE_TOKEN_NAME);
+        yield setAuthToken(null);
         yield put(loadUserFail());
     }
 }
@@ -81,7 +82,10 @@ function* loadUserWatcher() {
 
 function* logoutWorker() {
     yield put(logoutSuccess());
-    yield localStorage.removeItem(LOCAL_STORAGE_TOKEN_NAME);
+    if (localStorage[LOCAL_STORAGE_TOKEN_NAME]) {
+        localStorage.removeItem(LOCAL_STORAGE_TOKEN_NAME);
+    }
+    yield setAuthToken(null);
 }
 
 function* logoutWatcher() {

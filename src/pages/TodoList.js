@@ -1,13 +1,13 @@
-import React, {  useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components';
 import Card from '../components/TodoList/Card';
 import { color } from '../utils/constants';
 import InputPanel from '../components/TodoList/InputPanel';
 import Modal from '../components/TodoList/Modal';
 import { useSelector, useDispatch } from 'react-redux';
-import { editTodoRequest, fetchTodosRequest} from '../store/actions/todoActions';
+import { editTodoRequest, fetchTodosRequest } from '../store/actions/todoActions';
 import FilterPanel from '../components/TodoList/FilterPanel';
-import {updateTodo} from '../store/reducers/todoReducer';
+import { updateTodo } from '../store/reducers/todoReducer';
 import { loadUserRequest } from '../store/actions/authActions';
 
 const Container = styled.div`
@@ -37,8 +37,6 @@ const Title = styled.h1`
 
 const TodoList = () => {
 
-  
-
     const todoList = useSelector(state => state.todo.todos);
     const dispatch = useDispatch();
 
@@ -47,11 +45,7 @@ const TodoList = () => {
 
     useEffect(() => {
         dispatch(fetchTodosRequest());
-    },[dispatch]);
-
-    useEffect(() => {
-        dispatch(loadUserRequest());
-    }, []);
+    }, [dispatch]);
 
     const onEditTodo = (updatedTodo) => {
         dispatch(editTodoRequest(updatedTodo));

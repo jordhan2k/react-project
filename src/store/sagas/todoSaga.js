@@ -8,7 +8,7 @@ import { openSnackbar } from "../actions/snackbarActions";
 function* fetchAllTodos() {
     try {
         const response = yield todoApi.getAll();
-        yield put(fetchTodosSucceed(response.data));
+        yield put(fetchTodosSucceed(response.data.todos));
       
     } catch (error) {
         yield put(fetchTodosFail(error.message ? error.message : error));
@@ -23,7 +23,7 @@ function* addNewTodo(action) {
     const todo = action.payload;
     try {
         const response = yield todoApi.addTodo(todo);
-        yield put(addTodoSucceed(response.data));
+        yield put(addTodoSucceed(response.data.todo));
         yield put(openSnackbar({
             severity: "success",
             message: "Hooray! Todo added."
@@ -45,7 +45,7 @@ function* editTodo(action) {
     const editedTodo = action.payload;
     try {
         const response = yield todoApi.editTodo(editedTodo);
-        yield put(editTodoSucceed(response.data));
+        yield put(editTodoSucceed(response.data.todo));
     } catch (error) {
         yield put(editTodoFail(error));
     }

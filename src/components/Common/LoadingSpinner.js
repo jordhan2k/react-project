@@ -5,7 +5,7 @@ import loading from '../../assets/lottie/loading.json';
 
 const LoadingSpinner = () => {
     return (
-        <Lottie options={{animationData: loading}} height={400}/>
+        <Lottie options={{animationData: loading}} height={100}/>
     )
 }
 

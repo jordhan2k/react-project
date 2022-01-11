@@ -137,27 +137,8 @@ function* addTrackToPlaylist(action) {
 }
 
 function* addTrackToPlaylistWatcher() {
-    yield takeLatest(playerActionTypes.ADD_TRACK_PLAYLIST_REQUEST, addTrackToPlaylist)
+    yield takeLatest(playerActionTypes.ADD_TRACK_PLAYLIST_REQUEST, addTrackToPlaylist);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 function* playerSaga() {
     yield all([

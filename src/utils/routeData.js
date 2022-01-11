@@ -9,49 +9,82 @@ import Profile from '../pages/Profile';
 import LibraryMusicRounded from '@mui/icons-material/LibraryMusicRounded';
 import MusicPlayer from '../pages/MusicPlayer';
 import MaterialUI from '../pages/MaterialUI';
+import Auth from '../pages/Auth';
 
 const routeData = [
     {
         id: "1",
-        path: "/",
+        path: "/dashboard",
         name: "Dashboard",
         icon: <DashboardRoundedIcon />,
-        component: <Dashboard />
+        component: <Dashboard />,
+        onSidebar: true,
+        isProtected: true
     },
     {
         id: "2",
         path: "/todo-list",
         name: "TodoList",
         icon: <FactCheckRoundedIcon />,
-        component: <TodoList />
+        component: <TodoList />,
+        onSidebar: true,
+        isProtected: true
+        
     },
     {
         id: "3",
         path: "/ui",
         name: "UI",
         icon: <ColorLensIcon />,
-        component: <MaterialUI />
+        component: <MaterialUI />,
+        onSidebar: true,
+        isProtected: true
     },
     {
         id: "4",
         path: "/music-player",
         name: "Music Player",
         icon: <LibraryMusicRounded />,
-        component: <MusicPlayer />
+        component: <MusicPlayer />,
+        onSidebar: true,
+        isProtected: true
     },
     {
         id: "5",
         path: "/chat",
         name: "Chat",
-        icon: <MarkChatUnreadIcon />
+        icon: <MarkChatUnreadIcon />,
+        onSidebar: true,
+        isProtected: true
     },
     {
         id: "6",
-        path: "/profile/:username",
+        path: "/profile",
         name: "Profile",
         icon: <PermContactCalendarRoundedIcon />,
-        component: <Profile />
+        component: <Profile />,
+        onSidebar: true,
+        isProtected: true
     },
+    {
+        id: "7",
+        path: "/auth/login",
+        name: "Login",
+        component: <Auth authRoute="login" />,
+        onSidebar: false,
+        isAuth: true,
+        isProtected: false
+    },
+    {
+        id: "8",
+        path: "/auth/register",
+        name: "Register",
+        component: <Auth authRoute="register" />,
+        onSidebar: false,
+        isAuth: true,
+        isProtected: false
+    },
+
 
 ];
 

@@ -58,3 +58,20 @@ export const playerActionTypes = {
     CHANGE_PLAY_STATE: "player/play/changeState",
 
 }
+
+export const authActionTypes = {
+    LOAD_USER_REQUEST: "auth/loadUser/request",
+    LOAD_USER_SUCCESS: "auth/loadUser/success",
+    LOAD_USER_FAIL: "auth/loadUser/fail",
+
+    LOGIN_REQUEST: "auth/login/request",
+    LOGIN_SUCCESS: "auth/login/success",
+    LOGIN_FAIL: "auth/login/fail",
+
+    REGISTER_REQUEST: "auth/register/request",
+    REGISTER_SUCCESS: "auth/register/success",
+    REGISTER_FAIL: "auth/register/fail",
+
+    LOGOUT_REQUEST: "auth/logout/request",
+    LOGOUT_SUCCESS: "auth/logout/success"
+}

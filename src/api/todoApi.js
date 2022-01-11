@@ -1,6 +1,6 @@
 import axiosClient from "./axiosClient";
 
-const url = "/todos";
+const url = "http://localhost:5000/api/v1/todos";
 
 class TodoApi {
 

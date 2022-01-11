@@ -1,7 +1,7 @@
 import axiosClient from "./axiosClient";
 
-const trackUrl = "/tracks";
-const playlistUrl = "playlists";
+const trackUrl = "https://61c0b46e33f24c00178235a4.mockapi.io/api/v1/tracks";
+const playlistUrl = "https://61c0b46e33f24c00178235a4.mockapi.io/api/v1/playlists";
 
 class PlayerApi {
 

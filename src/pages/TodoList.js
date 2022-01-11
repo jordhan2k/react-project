@@ -8,6 +8,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { editTodoRequest, fetchTodosRequest} from '../store/actions/todoActions';
 import FilterPanel from '../components/TodoList/FilterPanel';
 import {updateTodo} from '../store/reducers/todoReducer';
+import { loadUserRequest } from '../store/actions/authActions';
 
 const Container = styled.div`
     flex: 1;
@@ -36,6 +37,8 @@ const Title = styled.h1`
 
 const TodoList = () => {
 
+  
+
     const todoList = useSelector(state => state.todo.todos);
     const dispatch = useDispatch();
 
@@ -45,6 +48,10 @@ const TodoList = () => {
     useEffect(() => {
         dispatch(fetchTodosRequest());
     },[dispatch]);
+
+    useEffect(() => {
+        dispatch(loadUserRequest());
+    }, []);
 
     const onEditTodo = (updatedTodo) => {
         dispatch(editTodoRequest(updatedTodo));

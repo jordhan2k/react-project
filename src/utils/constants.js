@@ -20,9 +20,6 @@ export const toastTypes = {
     WARNING: "toast/warning"
 }
 
-
-
-
 export const todoFilters = [
     {
         status: "All",
@@ -46,14 +43,20 @@ export const statusTypes = {
 }
 
 export const defaultImages = {
-    TRACK_ARTWORK : "https://i.ibb.co/vdWPnhw/com-hidea-cat.png",
+    TRACK_ARTWORK: "https://i.ibb.co/vdWPnhw/com-hidea-cat.png",
     PLAYLIST_IMAGE: "https://i.ibb.co/fGK2Kcn/catnsoup.jpg"
-
 }
-
 
 export const snackbarSeverity = {
     ERROR: "error",
     SUCCESS: "success",
     WARNING: "warning"
 }
+
+export const authStates = {
+    IDLE: "auth/idle",
+    LOADING: "auth/loading",
+    SUCCESS: "auth/success"
+}
+
+export const LOCAL_STORAGE_TOKEN_NAME = "my_fe_app";

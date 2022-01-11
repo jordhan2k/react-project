@@ -1,3 +1,4 @@
+import { snackbarSeverity } from "../../utils/constants";
 import { snackbarActionTypes } from "../actions/actionTypes";
 
 const initialState = {
